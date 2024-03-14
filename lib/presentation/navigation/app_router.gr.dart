@@ -15,25 +15,25 @@ abstract class _$AppRouter extends RootStackRouter {
 
   @override
   final Map<String, PageFactory> pagesMap = {
-    InitialRoute.name: (routeData) {
+    LandingRoute.name: (routeData) {
       return AutoRoutePage<dynamic>(
         routeData: routeData,
-        child: const InitialScreen(),
+        child: const LandingScreen(),
       );
     }
   };
 }
 
 /// generated route for
-/// [InitialScreen]
-class InitialRoute extends PageRouteInfo<void> {
-  const InitialRoute({List<PageRouteInfo>? children})
+/// [LandingScreen]
+class LandingRoute extends PageRouteInfo<void> {
+  const LandingRoute({List<PageRouteInfo>? children})
       : super(
-          InitialRoute.name,
+          LandingRoute.name,
           initialChildren: children,
         );
 
-  static const String name = 'InitialRoute';
+  static const String name = 'LandingRoute';
 
   static const PageInfo<void> page = PageInfo<void>(name);
 }
