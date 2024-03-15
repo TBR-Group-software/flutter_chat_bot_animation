@@ -7,6 +7,7 @@ class _PhoneNumberPanel extends StatelessWidget {
     required this.visible,
     required this.onTap,
     required this.onBackButtonTap,
+    required this.authBloc,
   });
 
   final Animation<double> phonePanelAnimation;
@@ -18,6 +19,12 @@ class _PhoneNumberPanel extends StatelessWidget {
   final VoidCallback onTap;
 
   final VoidCallback onBackButtonTap;
+
+  final AuthBloc authBloc;
+
+  void _onSendCodeTap(String phoneNumber) {
+    authBloc.add(AuthEvent.getPhoneCode(phoneNumber));
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -34,39 +41,61 @@ class _PhoneNumberPanel extends StatelessWidget {
       child: SizedBox(
         height: screenHeight,
         child: SafeArea(
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              if (visible) ProjectBackButton(onTap: onBackButtonTap),
-              const Spacer(),
-              SizedBox(
-                height: contentHeight,
-                width: double.infinity,
-                child: Stack(
-                  clipBehavior: Clip.none,
-                  alignment: Alignment.bottomCenter,
-                  children: [
-                    Positioned(
-                      top: 0,
-                      bottom: -bottomPosition,
-                      child: _PhoneNumberBackground(
-                        animation: phonePanelAnimation,
-                        diameter: diameter,
-                      ),
+          child: BlocBuilder<AuthBloc, AuthState>(
+            bloc: authBloc,
+            builder: (context, state) {
+              final isInitialState = state.status == BlocStatus.initial;
+
+              final Widget phonePanel;
+              if (state.status == BlocStatus.loading) {
+                phonePanel = _PhoneNumberLoading(
+                  onResendSendCodeTap: _onSendCodeTap,
+                );
+              } else if (state.status == BlocStatus.loaded) {
+                phonePanel = const _PhoneNumberCodeReceived();
+              } else {
+                phonePanel = _PhoneNumberInitial(onSendCodeTap: _onSendCodeTap);
+              }
+
+              return Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  if (visible && isInitialState)
+                    ProjectBackButton(onTap: onBackButtonTap),
+                  const Spacer(),
+                  SizedBox(
+                    height: contentHeight,
+                    width: double.infinity,
+                    child: Stack(
+                      clipBehavior: Clip.none,
+                      alignment: Alignment.bottomCenter,
+                      children: [
+                        Positioned(
+                          top: 0,
+                          bottom: -bottomPosition,
+                          child: _PhoneNumberBackground(
+                            animation: phonePanelAnimation,
+                            diameter: diameter,
+                          ),
+                        ),
+                        _AnimatedVisibility(
+                          animation: phonePanelAnimation,
+                          child: phonePanel,
+                        ),
+                        Positioned(
+                          top: -45,
+                          bottom: -bottomPosition,
+                          child: AlignTransition(
+                            alignment: alignmentAnimation,
+                            child: RoundButton(onTap: onTap),
+                          ),
+                        ),
+                      ],
                     ),
-                    _PhoneNumber(animation: phonePanelAnimation),
-                    Positioned(
-                      top: -45,
-                      bottom: -bottomPosition,
-                      child: AlignTransition(
-                        alignment: alignmentAnimation,
-                        child: RoundButton(onTap: onTap),
-                      ),
-                    ),
-                  ],
-                ),
-              ),
-            ],
+                  ),
+                ],
+              );
+            },
           ),
         ),
       ),

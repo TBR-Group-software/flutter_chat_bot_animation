@@ -1,6 +1,12 @@
+import 'dart:async';
+
 import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 
+import '../../../backbone/dependency_injection.dart' as di;
+import '../../bloc/auth/bloc.dart';
+import '../../bloc/status.dart';
 import '../../constants/colors.dart';
 import '../../constants/gen/assets.gen.dart';
 import '../../constants/text_style.dart';
@@ -11,8 +17,11 @@ import '../../widgets/project_text_field.dart';
 import '../../widgets/round_button.dart';
 import '../../widgets/rounded_button.dart';
 
-part 'components/phone_number.dart';
+part 'components/animated_visibility.dart';
 part 'components/phone_number_background.dart';
+part 'components/phone_number_code_received.dart';
+part 'components/phone_number_initial.dart';
+part 'components/phone_number_loading.dart';
 part 'components/phone_number_panel.dart';
 part 'components/welcome_layout.dart';
 
@@ -32,6 +41,16 @@ class _LandingScreenState extends State<LandingScreen>
   late final Animation<AlignmentGeometry> _alignmentAnimation;
   late final Animation<double> _phonePanelAnimation;
 
+  late final AnimationController _backgroundRotationController;
+  late final Animation<double> _backgroundRotationAnimation;
+  late final Animation<double> _backgroundRotationOpacityAnimation;
+
+  final _authBloc = di.sl.get<AuthBloc>();
+
+  BlocStatus? _previousBlocStatus;
+
+  bool _isBlocStateInitial = true;
+
   bool _isPhonePanelVisible = false;
 
   @override
@@ -41,6 +60,20 @@ class _LandingScreenState extends State<LandingScreen>
   }
 
   void _initAnimation() {
+    _backgroundRotationController = AnimationController(
+      vsync: this,
+      duration: const Duration(milliseconds: 300),
+    )..addStatusListener(_onBackgroundRotationControllerStatusChange);
+
+    _backgroundRotationAnimation = Tween<double>(
+      begin: 0,
+      end: 0.5,
+    ).animate(_backgroundRotationController);
+    _backgroundRotationOpacityAnimation = Tween<double>(
+      begin: 1,
+      end: 0,
+    ).animate(_backgroundRotationController);
+
     _controller = AnimationController(
       vsync: this,
       duration: _animationDuration,
@@ -65,6 +98,12 @@ class _LandingScreenState extends State<LandingScreen>
     ).animate(curveAnimation);
   }
 
+  void _onBackgroundRotationControllerStatusChange(AnimationStatus status) {
+    if (status == AnimationStatus.completed) {
+      _backgroundRotationController.value = 0;
+    }
+  }
+
   void _showPhoneLayout() {
     _isPhonePanelVisible = true;
     _controller.forward();
@@ -79,40 +118,83 @@ class _LandingScreenState extends State<LandingScreen>
     setState(() {});
   }
 
+  void _maybeHidePhoneLayout() {
+    if (!_isPhonePanelVisible || !_isBlocStateInitial) return;
+
+    _hidePhoneLayout();
+  }
+
+  void _onBlocChange(BuildContext context, AuthState state) {
+    if (state.status != BlocStatus.initial) {
+      _isBlocStateInitial = false;
+    }
+
+    if (_previousBlocStatus != state.status) {
+      _previousBlocStatus = state.status;
+      _backgroundRotationController.forward();
+    }
+  }
+
   @override
   void dispose() {
     _controller.dispose();
+    _backgroundRotationController.removeStatusListener(
+      _onBackgroundRotationControllerStatusChange,
+    );
+    _backgroundRotationController.dispose();
     super.dispose();
   }
 
   @override
   Widget build(BuildContext context) {
-    return GestureDetector(
-      onTap: FocusScope.of(context).unfocus,
-      child: Scaffold(
-        body: Stack(
-          children: [
-            const AnimatedBackground(),
-            AnimatedOpacity(
-              opacity: _isPhonePanelVisible ? 1 : 0,
-              duration: _animationDuration,
-              child: Background(
-                imagePath: ProjectAssets.images.backgroundUpsideDown.path,
-              ),
+    final staticBackground = Background(
+      imagePath: ProjectAssets.images.backgroundUpsideDown.path,
+    );
+
+    return BlocListener<AuthBloc, AuthState>(
+      bloc: _authBloc,
+      listener: _onBlocChange,
+      child: GestureDetector(
+        onTap: FocusScope.of(context).unfocus,
+        child: PopScope(
+          canPop: false,
+          onPopInvoked: (_) => _maybeHidePhoneLayout(),
+          child: Scaffold(
+            body: Stack(
+              children: [
+                const AnimatedBackground(),
+                AnimatedOpacity(
+                  opacity: _isPhonePanelVisible ? 1 : 0,
+                  duration: _animationDuration,
+                  child: Stack(
+                    children: [
+                      staticBackground,
+                      FadeTransition(
+                        opacity: _backgroundRotationOpacityAnimation,
+                        child: RotationTransition(
+                          turns: _backgroundRotationAnimation,
+                          child: staticBackground,
+                        ),
+                      ),
+                    ],
+                  ),
+                ),
+                AnimatedOpacity(
+                  opacity: _isPhonePanelVisible ? 0 : 1,
+                  duration: _animationDuration,
+                  child: const _WelcomeLayout(),
+                ),
+                _PhoneNumberPanel(
+                  visible: _isPhonePanelVisible,
+                  phonePanelAnimation: _phonePanelAnimation,
+                  alignmentAnimation: _alignmentAnimation,
+                  onBackButtonTap: _hidePhoneLayout,
+                  onTap: _showPhoneLayout,
+                  authBloc: _authBloc,
+                ),
+              ],
             ),
-            AnimatedOpacity(
-              opacity: _isPhonePanelVisible ? 0 : 1,
-              duration: _animationDuration,
-              child: const _WelcomeLayout(),
-            ),
-            _PhoneNumberPanel(
-              visible: _isPhonePanelVisible,
-              phonePanelAnimation: _phonePanelAnimation,
-              alignmentAnimation: _alignmentAnimation,
-              onBackButtonTap: _hidePhoneLayout,
-              onTap: _showPhoneLayout,
-            ),
-          ],
+          ),
         ),
       ),
     );

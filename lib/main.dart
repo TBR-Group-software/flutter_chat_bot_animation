@@ -1,8 +1,11 @@
 import 'package:flutter/material.dart';
 
+import 'backbone/dependency_injection.dart' as di;
 import 'presentation/navigation/app_router.dart';
 
 void main() {
+  di.init();
+
   runApp(const MyApp());
 }
 

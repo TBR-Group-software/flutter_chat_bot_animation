@@ -31,6 +31,14 @@ class $AssetsIconsGen {
 class $AssetsImagesGen {
   const $AssetsImagesGen();
 
+  /// File path: assets/images/android_app_icon.png
+  AssetGenImage get androidAppIcon =>
+      const AssetGenImage('assets/images/android_app_icon.png');
+
+  /// File path: assets/images/app_icon.png
+  AssetGenImage get appIcon =>
+      const AssetGenImage('assets/images/app_icon.png');
+
   /// File path: assets/images/background.png
   AssetGenImage get background =>
       const AssetGenImage('assets/images/background.png');
@@ -40,7 +48,8 @@ class $AssetsImagesGen {
       const AssetGenImage('assets/images/background_upside_down.png');
 
   /// List of all assets
-  List<AssetGenImage> get values => [background, backgroundUpsideDown];
+  List<AssetGenImage> get values =>
+      [androidAppIcon, appIcon, background, backgroundUpsideDown];
 }
 
 class ProjectAssets {

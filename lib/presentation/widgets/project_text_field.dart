@@ -12,6 +12,12 @@ class ProjectTextField extends StatefulWidget {
     this.textAlign = TextAlign.start,
     this.obscureText = false,
     this.inputTextStyle,
+    this.enabled,
+    this.controller,
+    this.disabledBorder,
+    this.fillColor,
+    this.onChanged,
+    this.keyboardType,
     super.key,
   });
 
@@ -28,6 +34,18 @@ class ProjectTextField extends StatefulWidget {
   final bool obscureText;
 
   final TextStyle? inputTextStyle;
+
+  final bool? enabled;
+
+  final TextEditingController? controller;
+
+  final InputBorder? disabledBorder;
+
+  final Color? fillColor;
+
+  final ValueChanged<String>? onChanged;
+
+  final TextInputType? keyboardType;
 
   @override
   State<ProjectTextField> createState() => _ProjectTextFieldState();
@@ -79,6 +97,10 @@ class _ProjectTextFieldState extends State<ProjectTextField> {
     return Padding(
       padding: widget.margin,
       child: TextField(
+        controller: widget.controller,
+        onChanged: widget.onChanged,
+        enabled: widget.enabled,
+        keyboardType: widget.keyboardType,
         focusNode: _focusNode,
         style: textStyle,
         obscureText: widget.obscureText,
@@ -90,8 +112,10 @@ class _ProjectTextFieldState extends State<ProjectTextField> {
           hintStyle: hintTextStyle,
           contentPadding: widget.padding,
           filled: true,
-          fillColor: _isFocused ? Colors.white24 : ProjectColors.white5,
+          fillColor: widget.fillColor ??
+              (_isFocused ? Colors.white24 : ProjectColors.white5),
           enabledBorder: border,
+          disabledBorder: widget.disabledBorder ?? border,
           border: border,
           focusedBorder: focusBorder,
         ),
