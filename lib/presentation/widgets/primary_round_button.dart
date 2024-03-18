@@ -6,16 +6,22 @@ import '../constants/colors.dart';
 import '../constants/gen/assets.gen.dart';
 import '../utils/gradient_box_border.dart';
 
-class RoundButton extends StatefulWidget {
-  const RoundButton({super.key, this.onTap});
+class PrimaryRoundButton extends StatefulWidget {
+  const PrimaryRoundButton({
+    super.key,
+    this.onTap,
+    this.dimension = 90,
+  });
 
   final VoidCallback? onTap;
 
+  final double dimension;
+
   @override
-  State<RoundButton> createState() => _RoundButtonState();
+  State<PrimaryRoundButton> createState() => _PrimaryRoundButtonState();
 }
 
-class _RoundButtonState extends State<RoundButton>
+class _PrimaryRoundButtonState extends State<PrimaryRoundButton>
     with TickerProviderStateMixin {
   late final AnimationController _controller;
   late final Animation<double> _gradientRotationAnimation;
@@ -37,27 +43,22 @@ class _RoundButtonState extends State<RoundButton>
       end: 180,
     ).animate(_controller);
 
-    _controller.forward();
-    _controller.addStatusListener(_listenToStatusChanges);
-  }
-
-  void _listenToStatusChanges(AnimationStatus status) {
-    if (status == AnimationStatus.completed) {
-      _controller.reverse();
-    } else if (status == AnimationStatus.dismissed) {
-      _controller.forward();
-    }
+    _controller.repeat(reverse: true);
   }
 
   @override
   void dispose() {
-    _controller.removeStatusListener(_listenToStatusChanges);
     _controller.dispose();
     super.dispose();
   }
 
   @override
   Widget build(BuildContext context) {
+    final gradientColors = [
+      ProjectColors.electricBlue,
+      ProjectColors.magenta,
+    ];
+
     return GestureDetector(
       onTap: widget.onTap,
       child: AnimatedBuilder(
@@ -69,7 +70,7 @@ class _RoundButtonState extends State<RoundButton>
             transform: GradientRotation(
               -_gradientRotationAnimation.value * (pi / 180),
             ),
-            colors: const [ProjectColors.electricBlue, ProjectColors.magenta],
+            colors: gradientColors,
           );
           final iconGradient = LinearGradient(
             begin: Alignment.topCenter,
@@ -77,12 +78,12 @@ class _RoundButtonState extends State<RoundButton>
             transform: GradientRotation(
               _gradientRotationAnimation.value * (pi / 180),
             ),
-            colors: const [ProjectColors.electricBlue, ProjectColors.magenta],
+            colors: gradientColors,
           );
 
           return Container(
-            width: 90,
-            height: 90,
+            width: widget.dimension,
+            height: widget.dimension,
             decoration: BoxDecoration(
               color: Colors.black,
               shape: BoxShape.circle,
@@ -103,7 +104,11 @@ class _RoundButtonState extends State<RoundButton>
             child: Center(
               child: ShaderMask(
                 shaderCallback: (bounds) => iconGradient.createShader(bounds),
-                child: ProjectAssets.icons.plainLogo.svg(height: 50),
+                child: FractionallySizedBox(
+                  heightFactor: 0.6,
+                  widthFactor: 0.6,
+                  child: ProjectAssets.icons.plainLogo.svg(),
+                ),
               ),
             ),
           );

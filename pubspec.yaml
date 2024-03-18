@@ -83,6 +83,9 @@ flutter:
       - asset: assets/fonts/Chivo/Chivo-Regular.ttf
         style: normal
         weight: 400
+      - asset: assets/fonts/Chivo/Chivo-Black.ttf
+        style: normal
+        weight: 900
   - family: Comfortaa
     fonts:
       - asset: assets/fonts/Comfortaa/Comfortaa-Medium.ttf

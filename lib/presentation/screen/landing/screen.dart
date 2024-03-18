@@ -10,11 +10,12 @@ import '../../bloc/status.dart';
 import '../../constants/colors.dart';
 import '../../constants/gen/assets.gen.dart';
 import '../../constants/text_style.dart';
+import '../../navigation/app_router.dart';
 import '../../widgets/animated_background.dart';
 import '../../widgets/background.dart';
+import '../../widgets/primary_round_button.dart';
 import '../../widgets/project_back_button.dart';
 import '../../widgets/project_text_field.dart';
-import '../../widgets/round_button.dart';
 import '../../widgets/rounded_button.dart';
 
 part 'components/animated_visibility.dart';
@@ -124,7 +125,7 @@ class _LandingScreenState extends State<LandingScreen>
     _hidePhoneLayout();
   }
 
-  void _onBlocChange(BuildContext context, AuthState state) {
+  Future<void> _onBlocChange(BuildContext context, AuthState state) async {
     if (state.status != BlocStatus.initial) {
       _isBlocStateInitial = false;
     }
@@ -132,6 +133,13 @@ class _LandingScreenState extends State<LandingScreen>
     if (_previousBlocStatus != state.status) {
       _previousBlocStatus = state.status;
       _backgroundRotationController.forward();
+    }
+
+    if (state.codeReceived) {
+      await Future.delayed(const Duration(seconds: 2));
+
+      if (!context.mounted) return;
+      context.replaceRoute(const InitializationRoute());
     }
   }
 

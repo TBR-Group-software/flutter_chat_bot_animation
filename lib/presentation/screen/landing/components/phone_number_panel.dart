@@ -87,7 +87,7 @@ class _PhoneNumberPanel extends StatelessWidget {
                           bottom: -bottomPosition,
                           child: AlignTransition(
                             alignment: alignmentAnimation,
-                            child: RoundButton(onTap: onTap),
+                            child: PrimaryRoundButton(onTap: onTap),
                           ),
                         ),
                       ],

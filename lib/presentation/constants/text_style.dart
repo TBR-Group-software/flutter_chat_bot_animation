@@ -42,6 +42,13 @@ abstract class ProjectTextStyle {
     color: Colors.white,
   );
 
+  static const chivoHeavy16White = TextStyle(
+    fontFamily: _chivoFontFamily,
+    fontSize: 16,
+    fontWeight: FontWeight.w900,
+    color: Colors.white,
+  );
+
   static const chivoRegular20White = TextStyle(
     fontFamily: _chivoFontFamily,
     fontSize: 20,
