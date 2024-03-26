@@ -1,5 +1,6 @@
 import 'package:auto_route/auto_route.dart';
 
+import '../screen/chat/screen.dart';
 import '../screen/initialization/screen.dart';
 import '../screen/landing/screen.dart';
 
@@ -12,6 +13,10 @@ class AppRouter extends _$AppRouter {
         AutoRoute(page: LandingRoute.page, initial: true),
         CustomRoute(
           page: InitializationRoute.page,
+          transitionsBuilder: TransitionsBuilders.noTransition,
+        ),
+        CustomRoute(
+          page: ChatRoute.page,
           transitionsBuilder: TransitionsBuilders.noTransition,
         ),
       ];

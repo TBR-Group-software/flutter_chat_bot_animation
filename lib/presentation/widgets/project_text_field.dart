@@ -12,12 +12,15 @@ class ProjectTextField extends StatefulWidget {
     this.textAlign = TextAlign.start,
     this.obscureText = false,
     this.inputTextStyle,
+    this.hintTextStyle,
     this.enabled,
     this.controller,
     this.disabledBorder,
+    this.border,
     this.fillColor,
     this.onChanged,
     this.keyboardType,
+    this.suffixIcon,
     super.key,
   });
 
@@ -35,17 +38,23 @@ class ProjectTextField extends StatefulWidget {
 
   final TextStyle? inputTextStyle;
 
+  final TextStyle? hintTextStyle;
+
   final bool? enabled;
 
   final TextEditingController? controller;
 
   final InputBorder? disabledBorder;
 
+  final InputBorder? border;
+
   final Color? fillColor;
 
   final ValueChanged<String>? onChanged;
 
   final TextInputType? keyboardType;
+
+  final Widget? suffixIcon;
 
   @override
   State<ProjectTextField> createState() => _ProjectTextFieldState();
@@ -89,10 +98,11 @@ class _ProjectTextFieldState extends State<ProjectTextField> {
           letterSpacing: widget.letterSpacingInInput,
         );
 
-    final hintTextStyle = ProjectTextStyle.chivoRegular12White.copyWith(
-      letterSpacing: 0,
-      color: Colors.white54,
-    );
+    final hintTextStyle = widget.hintTextStyle ??
+        ProjectTextStyle.chivoRegular12White.copyWith(
+          letterSpacing: 0,
+          color: Colors.white54,
+        );
 
     return Padding(
       padding: widget.margin,
@@ -108,16 +118,17 @@ class _ProjectTextFieldState extends State<ProjectTextField> {
         textAlign: widget.textAlign,
         cursorColor: Colors.white30,
         decoration: InputDecoration(
+          suffixIcon: widget.suffixIcon,
           hintText: widget.hintText,
           hintStyle: hintTextStyle,
           contentPadding: widget.padding,
           filled: true,
           fillColor: widget.fillColor ??
               (_isFocused ? Colors.white24 : ProjectColors.white5),
-          enabledBorder: border,
           disabledBorder: widget.disabledBorder ?? border,
-          border: border,
-          focusedBorder: focusBorder,
+          enabledBorder: widget.border ?? border,
+          border: widget.border ?? border,
+          focusedBorder: widget.border ?? focusBorder,
         ),
       ),
     );

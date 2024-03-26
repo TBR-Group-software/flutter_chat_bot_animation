@@ -78,7 +78,7 @@ class _PhoneNumberPanel extends StatelessWidget {
                             diameter: diameter,
                           ),
                         ),
-                        _AnimatedVisibility(
+                        AnimatedVisibility(
                           animation: phonePanelAnimation,
                           child: phonePanel,
                         ),

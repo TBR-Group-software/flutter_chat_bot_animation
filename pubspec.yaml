@@ -80,6 +80,9 @@ flutter:
   fonts:
   - family: Chivo
     fonts:
+      - asset: assets/fonts/Chivo/Chivo-Light.ttf
+        style: normal
+        weight: 300
       - asset: assets/fonts/Chivo/Chivo-Regular.ttf
         style: normal
         weight: 400
@@ -91,3 +94,8 @@ flutter:
       - asset: assets/fonts/Comfortaa/Comfortaa-Medium.ttf
         style: normal
         weight: 500
+  - family: Montserrat
+    fonts:
+      - asset: assets/fonts/Montserrat/Montserrat-Regular.ttf
+        style: normal
+        weight: 400

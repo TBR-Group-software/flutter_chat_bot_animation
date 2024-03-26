@@ -9,6 +9,8 @@ abstract class ProjectColors {
 
   static const midnightBlue = Color(0xFF3C00E8);
 
+  static const skyBlue = Color(0xFF06C3FF);
+
   static const midnightBlue40 = Color(0x663C00E8);
 
   static const hotPink = Color(0xFFFA00FF);
@@ -52,4 +54,10 @@ abstract class ProjectColors {
   static const lemonYellow20 = Color(0x33FFF500);
 
   static const silverGrey = Color(0xFFA7A7A7);
+
+  static const neutralGrey = Color(0xFF8A8A8A);
+
+  static const softGrey = Color(0xFF9A9A9A);
+
+  static const charcoalGrey = Color(0xFF242424);
 }

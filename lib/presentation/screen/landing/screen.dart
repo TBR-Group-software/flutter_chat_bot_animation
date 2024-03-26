@@ -12,13 +12,13 @@ import '../../constants/gen/assets.gen.dart';
 import '../../constants/text_style.dart';
 import '../../navigation/app_router.dart';
 import '../../widgets/animated_background.dart';
+import '../../widgets/animated_visibility.dart';
 import '../../widgets/background.dart';
 import '../../widgets/primary_round_button.dart';
 import '../../widgets/project_back_button.dart';
 import '../../widgets/project_text_field.dart';
 import '../../widgets/rounded_button.dart';
 
-part 'components/animated_visibility.dart';
 part 'components/phone_number_background.dart';
 part 'components/phone_number_code_received.dart';
 part 'components/phone_number_initial.dart';

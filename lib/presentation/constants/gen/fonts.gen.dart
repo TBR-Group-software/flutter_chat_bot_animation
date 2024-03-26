@@ -15,4 +15,7 @@ class ProjectFontFamily {
 
   /// Font family: Comfortaa
   static const String comfortaa = 'Comfortaa';
+
+  /// Font family: Montserrat
+  static const String montserrat = 'Montserrat';
 }

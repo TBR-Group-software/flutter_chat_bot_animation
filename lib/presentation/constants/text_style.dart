@@ -6,6 +6,7 @@ import 'gen/fonts.gen.dart';
 abstract class ProjectTextStyle {
   static const _chivoFontFamily = ProjectFontFamily.chivo;
   static const _comfortaaFontFamily = ProjectFontFamily.comfortaa;
+  static const _monserratFontFamily = ProjectFontFamily.montserrat;
 
   static const chivoRegular10DarkGrey = TextStyle(
     fontFamily: _chivoFontFamily,
@@ -28,6 +29,12 @@ abstract class ProjectTextStyle {
     color: ProjectColors.lightGrey,
   );
 
+  static const chivoRegular14White = TextStyle(
+    fontFamily: _chivoFontFamily,
+    fontSize: 14,
+    fontWeight: FontWeight.w400,
+    color: Colors.white,
+  );
   static const chivoRegular14LightGrey = TextStyle(
     fontFamily: _chivoFontFamily,
     fontSize: 14,
@@ -35,11 +42,46 @@ abstract class ProjectTextStyle {
     color: ProjectColors.lightGrey,
   );
 
+  static const chivoRegular14CharcoalGrey = TextStyle(
+    fontFamily: _chivoFontFamily,
+    fontSize: 14,
+    fontWeight: FontWeight.w400,
+    color: ProjectColors.charcoalGrey,
+  );
+
   static const chivoRegular16White = TextStyle(
     fontFamily: _chivoFontFamily,
     fontSize: 16,
     fontWeight: FontWeight.w400,
     color: Colors.white,
+  );
+
+  static const chivoRegular16SoftGrey = TextStyle(
+    fontFamily: _chivoFontFamily,
+    fontSize: 16,
+    fontWeight: FontWeight.w400,
+    color: ProjectColors.softGrey,
+  );
+
+  static const chivoLight16CharcoalGrey = TextStyle(
+    fontFamily: _chivoFontFamily,
+    fontSize: 16,
+    fontWeight: FontWeight.w300,
+    color: ProjectColors.charcoalGrey,
+  );
+
+  static const chivoRegular16CharcoalGrey = TextStyle(
+    fontFamily: _chivoFontFamily,
+    fontSize: 16,
+    fontWeight: FontWeight.w400,
+    color: ProjectColors.charcoalGrey,
+  );
+
+  static const chivoRegular16ElectricBlue = TextStyle(
+    fontFamily: _chivoFontFamily,
+    fontSize: 16,
+    fontWeight: FontWeight.w400,
+    color: ProjectColors.electricBlue,
   );
 
   static const chivoHeavy16White = TextStyle(
@@ -68,5 +110,12 @@ abstract class ProjectTextStyle {
     fontSize: 24,
     fontWeight: FontWeight.w500,
     color: Colors.white,
+  );
+
+  static const monserratRegular20Black = TextStyle(
+    fontFamily: _monserratFontFamily,
+    fontSize: 20,
+    fontWeight: FontWeight.w400,
+    color: Colors.black,
   );
 }

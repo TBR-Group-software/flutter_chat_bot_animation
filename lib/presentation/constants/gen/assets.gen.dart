@@ -21,11 +21,15 @@ class $AssetsIconsGen {
   /// File path: assets/icons/logo.svg
   SvgGenImage get logo => const SvgGenImage('assets/icons/logo.svg');
 
+  /// File path: assets/icons/microphone.svg
+  SvgGenImage get microphone =>
+      const SvgGenImage('assets/icons/microphone.svg');
+
   /// File path: assets/icons/plain_logo.svg
   SvgGenImage get plainLogo => const SvgGenImage('assets/icons/plain_logo.svg');
 
   /// List of all assets
-  List<SvgGenImage> get values => [backButton, logo, plainLogo];
+  List<SvgGenImage> get values => [backButton, logo, microphone, plainLogo];
 }
 
 class $AssetsImagesGen {
