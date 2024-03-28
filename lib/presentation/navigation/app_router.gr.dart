@@ -15,25 +15,65 @@ abstract class _$AppRouter extends RootStackRouter {
 
   @override
   final Map<String, PageFactory> pagesMap = {
-    InitialRoute.name: (routeData) {
+    ChatRoute.name: (routeData) {
       return AutoRoutePage<dynamic>(
         routeData: routeData,
-        child: const InitialScreen(),
+        child: const ChatScreen(),
       );
-    }
+    },
+    InitializationRoute.name: (routeData) {
+      return AutoRoutePage<dynamic>(
+        routeData: routeData,
+        child: const InitializationScreen(),
+      );
+    },
+    LandingRoute.name: (routeData) {
+      return AutoRoutePage<dynamic>(
+        routeData: routeData,
+        child: const LandingScreen(),
+      );
+    },
   };
 }
 
 /// generated route for
-/// [InitialScreen]
-class InitialRoute extends PageRouteInfo<void> {
-  const InitialRoute({List<PageRouteInfo>? children})
+/// [ChatScreen]
+class ChatRoute extends PageRouteInfo<void> {
+  const ChatRoute({List<PageRouteInfo>? children})
       : super(
-          InitialRoute.name,
+          ChatRoute.name,
           initialChildren: children,
         );
 
-  static const String name = 'InitialRoute';
+  static const String name = 'ChatRoute';
+
+  static const PageInfo<void> page = PageInfo<void>(name);
+}
+
+/// generated route for
+/// [InitializationScreen]
+class InitializationRoute extends PageRouteInfo<void> {
+  const InitializationRoute({List<PageRouteInfo>? children})
+      : super(
+          InitializationRoute.name,
+          initialChildren: children,
+        );
+
+  static const String name = 'InitializationRoute';
+
+  static const PageInfo<void> page = PageInfo<void>(name);
+}
+
+/// generated route for
+/// [LandingScreen]
+class LandingRoute extends PageRouteInfo<void> {
+  const LandingRoute({List<PageRouteInfo>? children})
+      : super(
+          LandingRoute.name,
+          initialChildren: children,
+        );
+
+  static const String name = 'LandingRoute';
 
   static const PageInfo<void> page = PageInfo<void>(name);
 }

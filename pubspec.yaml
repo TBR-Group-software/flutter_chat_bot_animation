@@ -13,7 +13,12 @@ dependencies:
     sdk: flutter
 
   auto_route: 7.8.4
+  bloc: 8.1.4
   cupertino_icons: ^1.0.2
+  flutter_svg: 2.0.10+1
+  flutter_bloc: 8.1.5
+  freezed_annotation: 2.4.1
+  get_it: 7.6.7
 
 dev_dependencies:
   flutter_test:
@@ -21,8 +26,16 @@ dev_dependencies:
 
   auto_route_generator: 7.3.2
   flutter_gen_runner: 5.4.0
-  flutter_lints: ^2.0.0
+  flutter_launcher_icons: 0.13.1
+  flutter_lints: ^3.0.1
   freezed: 2.4.7
+
+flutter_launcher_icons:
+  android: true
+  ios: true
+  image_path: "assets/images/app_icon.png"
+  adaptive_icon_background: "#242424"
+  adaptive_icon_foreground: "assets/images/android_app_icon.png"
 
 flutter_gen:
   output: lib/presentation/constants/gen/
@@ -47,3 +60,42 @@ flutter_gen:
 
 flutter:
   uses-material-design: true
+
+  assets:
+    - assets/images/
+    - assets/icons/
+
+  # FontWeight
+  # 100 Thin
+  # 200 ExtraLight / UltraLight
+  # 300 Light
+  # 400 Regular / Normal
+  # 500 Medium
+  # 600 SemiBold / DemiBold
+  # 700 Bold
+  # 800 UltraBold / ExtraBold
+  # 900 Heavy / Black
+  # 950 UltraBlack / ExtraBlack
+
+  fonts:
+  - family: Chivo
+    fonts:
+      - asset: assets/fonts/Chivo/Chivo-Light.ttf
+        style: normal
+        weight: 300
+      - asset: assets/fonts/Chivo/Chivo-Regular.ttf
+        style: normal
+        weight: 400
+      - asset: assets/fonts/Chivo/Chivo-Black.ttf
+        style: normal
+        weight: 900
+  - family: Comfortaa
+    fonts:
+      - asset: assets/fonts/Comfortaa/Comfortaa-Medium.ttf
+        style: normal
+        weight: 500
+  - family: Montserrat
+    fonts:
+      - asset: assets/fonts/Montserrat/Montserrat-Regular.ttf
+        style: normal
+        weight: 400

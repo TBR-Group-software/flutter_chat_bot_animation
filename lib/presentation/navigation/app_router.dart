@@ -1,6 +1,8 @@
 import 'package:auto_route/auto_route.dart';
 
-import '../screen/initial/screen.dart';
+import '../screen/chat/screen.dart';
+import '../screen/initialization/screen.dart';
+import '../screen/landing/screen.dart';
 
 part 'app_router.gr.dart';
 
@@ -8,6 +10,14 @@ part 'app_router.gr.dart';
 class AppRouter extends _$AppRouter {
   @override
   List<AutoRoute> get routes => [
-        AutoRoute(page: InitialRoute.page, initial: true),
+        AutoRoute(page: LandingRoute.page, initial: true),
+        CustomRoute(
+          page: InitializationRoute.page,
+          transitionsBuilder: TransitionsBuilders.noTransition,
+        ),
+        CustomRoute(
+          page: ChatRoute.page,
+          transitionsBuilder: TransitionsBuilders.noTransition,
+        ),
       ];
 }
