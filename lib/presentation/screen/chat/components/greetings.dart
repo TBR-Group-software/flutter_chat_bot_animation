@@ -108,9 +108,7 @@ class _GreetingsState extends State<_Greetings> with TickerProviderStateMixin {
               style: isYesClicked
                   ? ProjectTextStyle.chivoLight16CharcoalGrey
                   : ProjectTextStyle.chivoRegular16CharcoalGrey,
-              child: const Text(
-                'Do you want to set a name for me?',
-              ),
+              child: const Text('Do you want to set a name for me?'),
             ),
             const SizedBox(height: 20),
             Stack(
@@ -132,15 +130,9 @@ class _GreetingsState extends State<_Greetings> with TickerProviderStateMixin {
                   child: Row(
                     mainAxisSize: MainAxisSize.min,
                     children: [
-                      _Button.contained(
-                        label: 'YES',
-                        onTap: _onYesTap,
-                      ),
+                      _Button.contained(label: 'YES', onTap: _onYesTap),
                       const SizedBox(width: 15),
-                      _Button.outlined(
-                        label: 'NO',
-                        onTap: widget.onNoTap,
-                      ),
+                      _Button.outlined(label: 'NO', onTap: widget.onNoTap),
                     ],
                   ),
                 ),
@@ -148,7 +140,7 @@ class _GreetingsState extends State<_Greetings> with TickerProviderStateMixin {
             ),
             AnimatedBuilder(
               animation: _sizeAnimation,
-              builder: (_, __) => SizedBox(height: _sizeAnimation.value),
+              builder: (_, _) => SizedBox(height: _sizeAnimation.value),
             ),
             if (isYesClicked)
               const Padding(

@@ -166,7 +166,7 @@ class _LandingScreenState extends State<LandingScreen>
         onTap: FocusScope.of(context).unfocus,
         child: PopScope(
           canPop: false,
-          onPopInvoked: (_) => _maybeHidePhoneLayout(),
+          onPopInvokedWithResult: (_, _) => _maybeHidePhoneLayout(),
           child: Scaffold(
             body: Stack(
               children: [

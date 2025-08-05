@@ -72,9 +72,7 @@ class _ChatScreenState extends State<ChatScreen> with TickerProviderStateMixin {
     _contentSizeAnimationController = AnimationController.unbounded(
       vsync: this,
     );
-    _layoutListenerController = AnimationController.unbounded(
-      vsync: this,
-    );
+    _layoutListenerController = AnimationController.unbounded(vsync: this);
     _textFieldVisibilityController = AnimationController(
       vsync: this,
       duration: _animationDuration,
@@ -211,9 +209,8 @@ class _ChatScreenState extends State<ChatScreen> with TickerProviderStateMixin {
                 children: [
                   AnimatedBuilder(
                     animation: _roundButtonSizeAnimation,
-                    builder: (_, __) => SizedBox(
-                      height: _roundButtonSizeAnimation.value / 2,
-                    ),
+                    builder: (_, _) =>
+                        SizedBox(height: _roundButtonSizeAnimation.value / 2),
                   ),
                   Stack(
                     children: [
@@ -267,7 +264,7 @@ class _ChatScreenState extends State<ChatScreen> with TickerProviderStateMixin {
                                               _toggleListenerLayout,
                                           hintTextStyle: _isGreetingsHidden
                                               ? ProjectTextStyle
-                                                  .chivoRegular16CharcoalGrey
+                                                    .chivoRegular16CharcoalGrey
                                               : null,
                                         ),
                                       ),
@@ -285,7 +282,7 @@ class _ChatScreenState extends State<ChatScreen> with TickerProviderStateMixin {
               ),
               AnimatedBuilder(
                 animation: _roundButtonSizeAnimation,
-                builder: (_, __) => PrimaryRoundButton(
+                builder: (_, _) => PrimaryRoundButton(
                   onTap: _toggleChat,
                   dimension: _roundButtonSizeAnimation.value,
                 ),
@@ -293,9 +290,7 @@ class _ChatScreenState extends State<ChatScreen> with TickerProviderStateMixin {
             ],
           ),
         ),
-        _Foreground(
-          animation: _foregroundAnimationController,
-        ),
+        _Foreground(animation: _foregroundAnimationController),
       ],
     );
   }
